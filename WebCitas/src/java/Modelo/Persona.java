@@ -45,7 +45,7 @@ public class Persona {
     public Persona (){
     }
 
-    public Persona(String dni, String email, String passwd, String nombre, int edad, String sexo, String ocupacion, String rol, boolean activo, boolean preferenciasOk) {
+    public Persona(String dni, String email, String passwd, String nombre, int edad, String sexo, String ocupacion, boolean activo, boolean preferenciasOk) {
         this.dni = dni;
         this.email = email;
         this.passwd = passwd;
@@ -53,7 +53,7 @@ public class Persona {
         this.edad = edad;
         this.sexo = sexo;
         this.ocupacion = ocupacion;
-        this.rol = rol;
+        this.rol = "";
         this.activo = activo;
         this.preferenciasOk = preferenciasOk;
         this.fotoPerfil = "";
