@@ -24,6 +24,7 @@
              * Cuando el usuario presiona el botón aceptar, se busca al usuario dentro de 
              * la lista de usuarios y se devuelve, guardando su información en una variable de sesión. 
              */
+            
             if (request.getParameter("aceptar") != null){
                 String email = request.getParameter("email");
                 String passwd = request.getParameter("passwd");
@@ -64,6 +65,10 @@
                         session.setAttribute("error-mensaje", "La cuenta todavía no ha sido activada.");
                         response.sendRedirect("../index.jsp");
                     }
+                } else {
+                    // Si el usuario no existe, se manda un mensaje y se vuelve al login.
+                    session.setAttribute("error-mensaje", "Error al iniciar la sesión, datos incorrectos.");
+                    response.sendRedirect("../index.jsp");
                 }
             }
             
@@ -71,8 +76,10 @@
              * ************ BOTON ENVIAR EMAIL - passwdOlvidada.jsp ************
              * *****************************************************************
              * 
-             * Cuando el usuario presiona el botón aceptar, se busca al usuario dentro de 
-             * la lista de usuarios y se devuelve, guardando su información en una variable de sesión. 
+             * Cuando el usuario presiona el botón enviar email, se crea una nueva contraseña
+             * que es un número aleatorio y se le envía un correo electrónico con la nueva contraseña.
+             * 
+             * Al mismo tiempo, se actualiza dicha contraseña en la BD.
              */
             
             if(request.getParameter("enviarEmail") != null){
@@ -89,7 +96,7 @@
                 email.sendEmail(de, clave, para, mensaje, asunto);
                 
                 ConexionEstatica.nueva();
-                conseguido = ConexionEstatica.changePasswd(para, az);
+                conseguido = ConexionEstatica.changePassword(para, az);
                 ConexionEstatica.cerrarBD();
                 
                 if(conseguido){
@@ -99,6 +106,43 @@
                     response.sendRedirect("../index.jsp");
                 }
             }
+            
+            /*******************************************************************
+             * *************** BOTON ENTRAR ADMIN - opcionAdmin.jsp ************
+             * *****************************************************************
+             * 
+             * Cuando el usuario presiona el botón entrar como administrador en la ventana
+             * de opción del administrador, le mandamos a la vista del CRUD de usuarios.
+             */
+            
+             if(request.getParameter("entrarAdmin") != null){
+                response.sendRedirect("Vistas/CRUDUsuarios.jsp");
+             }
+             
+             /******************************************************************
+             * ************** BOTON ENTRAR USUARIO - opcionAdmin.jsp ***********
+             * *****************************************************************
+             * 
+             * Cuando el usuario presiona el botón entrar como usuario en la ventana
+             * de opción del administrador, le mandamos a la vista de portada como un usuario común.
+             */
+            
+             if(request.getParameter("entrarUsuario") != null){
+                response.sendRedirect("Vistas/portada.jsp");
+             }
+             
+             /******************************************************************
+             * *************** BOTON CERRAR SESIÓN - opcionAdmin.jsp ***********
+             * *****************************************************************
+             * 
+             * Cuando el usuario presiona el botón cerrar sesión, se invalidan los datos
+             * de la sesión y volvemos a la ventana de login.
+             */
+            
+             if(request.getParameter("cerrarSesion") != null){
+                session.invalidate();
+                response.sendRedirect("../index.jsp");
+             }
         %>
     </body>
 </html>
