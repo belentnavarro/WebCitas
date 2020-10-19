@@ -171,8 +171,8 @@ public class ConexionEstatica {
                      + p.getSexo() + "', " + p.getOcupacion() + ", " + p.isActivo() + ", " + p.isPreferenciasOk() + ", '')";
             ConexionEstatica.Sentencia_SQL.executeUpdate(sentencia);
             
-            // Añadimos a la tabla de asignación de roles al nuevo usuario como usuario común (0).
-            sentencia = "INSERT INTO " + Constantes.tablaAsignacionRoles + " VALUES('" + p.getDni() + "', 0)";
+            // Añadimos a la tabla de asignación de roles al nuevo usuario como usuario común (1).
+            sentencia = "INSERT INTO " + Constantes.tablaAsignacionRoles + " VALUES(1, '" + p.getDni() + "')";
             ConexionEstatica.Sentencia_SQL.executeUpdate(sentencia);
             
             conseguido = true;
@@ -180,6 +180,31 @@ public class ConexionEstatica {
             System.out.println("Error en el acceso a la BD.");
         }
         
+        return conseguido;
+    }
+    
+    public static boolean setLikes(Persona p){
+        boolean conseguido = false;
+        try {
+            String sentencia = "INSERT INTO " + Constantes.tablaPreferencias + " VALUES ('" + p.getDni() + "', " + p.isRelacionSeria() + ", " + p.getDeportes() + ", " + p.getArtes()+ ", " 
+                    + p.getPolitica() + ", " + p.isQuiereHijos() + ", " + p.isTieneHijos() + ", " + p.isInteresHombres() + ", " + p.isInteresMujeres() + ")";
+            Sentencia_SQL.executeUpdate(sentencia);
+            conseguido = true;
+        } catch (SQLException ex){
+            System.out.println("Error en el acceso a la BD.");
+        }
+        return conseguido;
+    }
+    
+    public static boolean doneLikes(Persona p){
+        boolean conseguido = false;
+        try {
+            String sentencia = "UPDATE " + Constantes.tablaPersonas + " SET preferenciasOk = true WHERE dni = '" + p.getDni() + "'";
+            Sentencia_SQL.executeUpdate(sentencia);
+            conseguido = true;
+        } catch(SQLException ex){
+            System.out.println("Error en el acceso a la BD.");
+        }
         return conseguido;
     }
 }
