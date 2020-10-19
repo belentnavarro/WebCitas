@@ -4,6 +4,7 @@
     Author     : belen
 --%>
 
+<%@page import="Modelo.Persona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,7 +25,7 @@
         </header>
         <main class = "row">
             <div class = "col-m-4"></div>
-            <form novalidate name="login" action="controladorLogin.jsp" method="POST" class="col-m-4">
+            <form novalidate name="login" action="Controladores/controladorLogin.jsp" method="POST" class="col-m-4">
                 <p>
                     <label for="email">Email:</label>
                     <input name="email" type="email" id="email" placeholder="ejemplo@ejemplo.com" required/>
@@ -41,14 +42,14 @@
                         
                 %>
                 <span name="error-mensaje"><%=mensajeError%></span>
-                <&
+                <%
                     }
                 %>
                 <p>
                     <input type="submit" name="aceptar" value="Login" class="boton"/>
                 </p>
-                <p><a href="/Vistas/passwdOlvidada.jsp">He olvidado la contraseña.</a></p>
-                <p><a href="/Vistas/registro.jsp">Registrate aquí y encuentra a tu media naranja.</a></p>
+                <p><a href="Vistas/passwdOlvidada.jsp">He olvidado la contraseña.</a></p>
+                <p><a href="Vistas/registro.jsp">Registrate aquí y encuentra a tu media naranja.</a></p>
             </form>
             <div class="col-l-4 col-m-2"></div>
         </main>

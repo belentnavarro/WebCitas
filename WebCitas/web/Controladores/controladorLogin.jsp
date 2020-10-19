@@ -30,7 +30,7 @@
                 String passwd = request.getParameter("passwd");
                 
                 ConexionEstatica.nueva();
-                Persona usuario = ConexionEstatica.login(email, passwd);
+                Persona usuario = ConexionEstatica.login1(email, passwd);
                 
                 if(usuario != null){
                     // Si el usuario está activo, se guarda al usaurio en una variable de sesion
@@ -38,7 +38,7 @@
                         session.setAttribute("usuario", usuario);
 
                         // Si el usuario es administrador se cargan la lista de usuarios de la BD y se guarda en una variable de sesión
-                        if(usuario.getRol() == "administrador"){
+                        if(usuario.getRol().equals("administrador")){
                             LinkedList <Persona> listaUsuarios = ConexionEstatica.getUsers();
                             session.setAttribute("listaUsuarios", listaUsuarios);
 

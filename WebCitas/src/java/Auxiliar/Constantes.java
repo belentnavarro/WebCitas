@@ -25,7 +25,7 @@ public class Constantes {
     public static String tablaAmigos = "amigos";
     public static String tablaPreferencias = "preferencias";
     public static String tablaRoles = "roles";
-    public static String tablaAsignacionRoles = "asignacionRoles";
+    public static String tablaAsignacionRoles = "asignacionroles";
     public static String tablaMensajes = "mensajes";
     public static String tablaFicherosAdj = "ficherosAdj";
 }

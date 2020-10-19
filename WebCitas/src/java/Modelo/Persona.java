@@ -43,6 +43,17 @@ public class Persona {
      ***************************************************************************/
     
     public Persona (){
+        this.dni = "";
+        this.email = "";
+        this.passwd = "";
+        this.nombre = "";
+        this.edad = 0;
+        this.sexo = "";
+        this.ocupacion = "";
+        this.rol = "";
+        this.activo = false;
+        this.preferenciasOk = false;
+        this.fotoPerfil = "";
     }
 
     public Persona(String dni, String email, String passwd, String nombre, int edad, String sexo, String ocupacion, boolean activo, boolean preferenciasOk) {
