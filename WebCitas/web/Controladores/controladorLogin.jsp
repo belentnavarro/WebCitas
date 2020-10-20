@@ -44,20 +44,20 @@
 
                             if(usuario.isPreferenciasOk()){
                                 // Si el usuario tiene las preferencias, se manda a la ventana para elegir si quiere entrar como administrador o como usuario
-                                response.sendRedirect("Vistas/opcionAdmin.jsp");
+                                response.sendRedirect("../Vistas/opcionAdmin.jsp");
                             } else {
                                 // Si el usuario no tiene las preferencias, se le manda a la ventana para registrar sus gustos personales
-                                response.sendRedirect("Vistas/preferencias.jsp");
+                                response.sendRedirect("../Vistas/preferencias.jsp");
                             }
                         
                             //Si el usuario no es administrador
                         } else {
                             if(usuario.isPreferenciasOk()){
                                 // Si el usuario tiene las preferencias, se manda a la portada principal de la aplicación
-                                response.sendRedirect("Vistas/portada.jsp");
+                                response.sendRedirect("../Vistas/portada.jsp");
                             } else {
                                 // Si el usuario no tiene las preferencias, se le manda a la ventana para registrar sus gustos personales
-                                response.sendRedirect("Vistas/preferencias.jsp");
+                                response.sendRedirect("../Vistas/preferencias.jsp");
                             }
                         }
                     } else {
@@ -100,7 +100,7 @@
                 ConexionEstatica.cerrarBD();
                 
                 if(conseguido){
-                    response.sendRedirect("Vistas/emailEnviado.jsp");
+                    response.sendRedirect("../Vistas/emailEnviado.jsp");
                 } else {
                     session.setAttribute("error-mensaje", "No se ha podido enviar la nueva contraseña a la dirección.");
                     response.sendRedirect("../index.jsp");
@@ -116,7 +116,7 @@
              */
             
              if(request.getParameter("entrarAdmin") != null){
-                response.sendRedirect("Vistas/CRUDUsuarios.jsp");
+                response.sendRedirect("../Vistas/CRUDUsuarios.jsp");
              }
              
              /******************************************************************
@@ -128,7 +128,7 @@
              */
             
              if(request.getParameter("entrarUsuario") != null){
-                response.sendRedirect("Vistas/portada.jsp");
+                response.sendRedirect("../Vistas/portada.jsp");
              }
              
              /******************************************************************

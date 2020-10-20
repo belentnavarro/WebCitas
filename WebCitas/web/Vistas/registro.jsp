@@ -62,10 +62,6 @@
                 </select>
             </fieldset>
             <p>
-                <label for="ocupacion">Ocupacion:</label> 
-                <input name="ocupacion" id="ocupacion" type="text" placeholder="Introduce tu ocupación"/>
-                <span class="error" aria-live="polite"></span>
-            </p>
             <div id="captchaRegistro">
                 <canvas id="captcha"></canvas>
                 <input type="button" id="refresh" value="Refrescar" onclick="captcha();" class="boton"/>
@@ -74,8 +70,8 @@
                 <span class="error" id="errorCaptcha"></span>
             </div>
             <p>
-                <input type="submit" name="aceptar" value="Aceptar"/>
-                <a href="../index.jsp"><button type="submit" name="volver" value="Volver" class="boton">Volver</button></a>
+                <input type="submit" name="aceptar" value="Aceptar" class="boton"/>
+                <input type="submit" name="volver" value="Volver" class="boton"/>
             </p>
         </form>
         <div class="col-m-4"></div>

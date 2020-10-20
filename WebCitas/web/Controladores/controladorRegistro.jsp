@@ -30,11 +30,10 @@
                 String passwd2 = request.getParameter("password2");
                 int edad = Integer.parseInt(request.getParameter("edad"));
                 String sexo = request.getParameter("sexo");
-                String ocupacion = request.getParameter("ocupacion");
                 
                 if(passwd.equals(passwd2)){
                     // La persona no estará activada hasta que el administrador la active.
-                    Persona p = new Persona(dni, email, passwd, nombre, edad, sexo, ocupacion, false, false);
+                    Persona p = new Persona(dni, email, passwd, nombre, edad, sexo, false, false);
                     boolean conseguido = ConexionEstatica.insertUser(p);
                     
                     if(conseguido){
@@ -43,6 +42,18 @@
                     }
                 }                
             }
+            
+            /*******************************************************************
+             * *************** BOTON VOLVER - registro.jsp **********
+             * *****************************************************************
+             * 
+             * Cuando el usuario presiona el botón cerrar sesión, se invalidan los datos
+             * de la sesión y volvemos a la ventana de login.
+             */
+            
+             if(request.getParameter("volver") != null){
+                response.sendRedirect("../index.jsp");
+             }
             
             /*******************************************************************
              * *************** BOTON CERRAR SESIÓN - preferencias.jsp **********

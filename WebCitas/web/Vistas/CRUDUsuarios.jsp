@@ -49,7 +49,6 @@
                     String email = "";
                     String sexoU = "";
                     int edad = 0;
-                    String ocupacion ="";
                     String adminTXT = "";
                     boolean preferencias = false;
                     String preferenciasTXT = "";
@@ -63,7 +62,6 @@
                         email = p.getEmail();
                         sexoU = p.getSexo();
                         edad = p.getEdad();
-                        ocupacion = p.getOcupacion();
                         preferencias = p.isPreferenciasOk();
                         activo = p.isActivo();
                         
@@ -93,7 +91,6 @@
                     <input type="text" name="nombre" value="<%=nombreU%>" readonly/>
                     <input type="text" name="email" value="<%=email%>" readonly/>
                     <input type="text" name="sexo" value="<%=sexoU%>" readonly/>
-                    <input type="text" name="ocupacion" value="<%=ocupacion%>" readonly/>
                     <input type="text" name="activo" value="<%=activoTXT%>" readonly/>
                     <input type="text" name="preferencias" value="<%=preferenciasTXT%>" readonly/>
                     <input type="text" name="admin" value="<%=adminTXT%>" readonly/>
