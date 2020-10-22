@@ -5,16 +5,13 @@
         <group>
             <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/Controladores/controladorLogin.jsp</file>
             <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/src/java/Modelo/ConexionEstatica.java</file>
-            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/Vistas/CRUDUsuarios.jsp</file>
             <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/Vistas/registro.jsp</file>
-            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/Controladores/controladorRegistro.jsp</file>
-            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/Vistas/opcionAdmin.jsp</file>
+            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/JS/captchaRegistro.js</file>
+            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/src/java/Auxiliar/VerificarRecaptcha.java</file>
             <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/index.jsp</file>
             <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/JS/validacionLogin.js</file>
             <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/JS/validacionRegistro.js</file>
-            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/Vistas/preferencias.jsp</file>
-            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/src/java/Auxiliar/Constantes.java</file>
-            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/src/java/Modelo/Persona.java</file>
+            <file>file:/C:/Users/belen/Documents/NetBeansProjects/WebCitas/WebCitas/web/Estilos/estilosGenerales.css</file>
         </group>
     </open-files>
 </project-private>

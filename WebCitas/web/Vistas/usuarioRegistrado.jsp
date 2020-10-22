@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>¡Usuario registrado!</title>
         <link rel="stylesheet" type="text/css" href="Estilos/estilosGenerales.css">
-        <!--<link rel="icon" type="image/png" href="Images/favicon-webcitas.png">-->
+        <link rel="icon" type="image/png" href="Images/favicon-webcitas.png">
     </head>
     <body>
         <header class = "row">
@@ -33,8 +33,8 @@
             </div>
             <div class="col-m-4"></div>
         </main>
-        <footer>
-            <p>© Belén Trujillo Navarro</p>
+        <footer class="row">
+            <p class="col-m-12 col-l-12">© Belén Trujillo Navarro</p>
         </footer>
     </body>
 </html>

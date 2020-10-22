@@ -11,11 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registro de usuario</title>
         <link rel="stylesheet" type="text/css" href="Estilos/estilosGenerales.css">
-        <!--<link rel="icon" type="image/png" href="Images/favicon-webcitas.png">-->
+        <link rel="icon" type="image/png" href="Images/favicon-webcitas.png">
         <script src="../JS/validacionRegistro.js"></script>
         <script src="../JS/captchaRegistro.js"></script>
     </head>
-    <body onload="validarRegistro();">
+    <body onload="validarRegistro(); captcha();">
         <header class = "row">
             <div class = "col-m-4"></div>
             <div class = "col-m-4">
@@ -65,8 +65,8 @@
             <div id="captchaRegistro">
                 <canvas id="captcha"></canvas>
                 <input type="button" id="refresh" value="Refrescar" onclick="captcha();" class="boton"/>
-                <input type="text" id="txtInputCaptcha"/>
-                <input id="button" type="button" value="Confirmar" onclick="validCaptcha('txtInput');" class="boton"/>
+                <input type="text" id="txtInput"/>
+                <input id="confirmar" type="button" value="Confirmar" onclick="validCaptcha('txtInput');" class="boton"/>
                 <span class="error" id="errorCaptcha"></span>
             </div>
             <p>
@@ -75,8 +75,8 @@
             </p>
         </form>
         <div class="col-m-4"></div>
-        <footer>
-            <p>© Belén Trujillo Navarro</p>
+        <footer class="row">
+            <p class="col-m-12 col-l-12">© Belén Trujillo Navarro</p>
         </footer>
     </body>
 </html>

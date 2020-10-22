@@ -77,7 +77,7 @@ function validarRegistro(){
          * */
     });
 
-    dni.addEventListener('focusout', function (event) {
+    dni.addEventListener('blur', function (event) {
         if (dni.validity.valid) {
             dniError.innerHTML = '';
             dniError.className = 'error';
@@ -88,19 +88,19 @@ function validarRegistro(){
 
     function showErrorDNI() {
         if (dni.validity.valueMissing) {
-            dniError.textContent = 'Debe introducir un DNI.';
+            dniError.innerHTML = 'Debe introducir un DNI.';
         } else if (dni.validity.patternMismatch) {
-            dniError.textContent = 'El formato del DNI debe ser: 00000000-A.';
+            dniError.innerHTML = 'El formato del DNI debe ser: 00000000-A.';
         } else if (dni.validity.tooShort) {
-            dniError.textContent = 'El DNI debe tener ' + dni.maxLength + ' carácteres.';
+            dniError.innerHTML = 'El DNI debe tener ' + dni.maxLength + ' carácteres.';
         } else if (dni.validity.tooLong) {
-            dniError.textContent = 'El DNI debe tener ' + dni.maxLength + ' carácteres.';
+            dniError.innerHTML = 'El DNI debe tener ' + dni.maxLength + ' carácteres.';
         }
         
         dniError.className = 'error active';
     }
 
-    nombre.addEventListener('focusout', function (event) {
+    nombre.addEventListener('blur', function (event) {
         if (nombre.validity.valid) {
             nombreError.innerHTML = '';
             nombreError.className = 'error';
@@ -111,13 +111,13 @@ function validarRegistro(){
 
     function showErrorNombre() {
         if (apodo.validity.valueMissing) {
-            apodoError.textContent = 'Debe introducir un nombre.';
+            apodoError.innerHTML = 'Debe introducir un nombre.';
         } 
 
         apodoError.className = 'error active';
     }
 
-    email.addEventListener('focusout', function (event) {
+    email.addEventListener('blur', function (event) {
         if (email.validity.valid) {
             emailError.innerHTML = '';
             emailError.className = 'error';
@@ -128,15 +128,15 @@ function validarRegistro(){
 
     function showErrorEmail() {
         if (email.validity.valueMissing) {
-            emailError.textContent = 'Debe introducir una dirección de correo electrónico.';
+            emailError.innerHTML = 'Debe introducir una dirección de correo electrónico.';
         } else if (email.validity.typeMismatch) {
-            emailError.textContent = 'Debe introducir una dirección de correo electrónico correcta: ejemplo@ejemplo.com.';
+            emailError.innerHTML = 'Debe introducir una dirección de correo electrónico correcta: ejemplo@ejemplo.com.';
         } 
 
         emailError.className = 'error active';
     }
 
-    password.addEventListener('focusout', function (event) {
+    password.addEventListener('blur', function (event) {
         if (password.validity.valid) {
             passwordError.innerHTML = '';
             passwordError.className = 'error';
@@ -147,23 +147,23 @@ function validarRegistro(){
 
     function showPasswordError() {
         if (password.validity.valueMissing) {
-            passwordError.textContent = 'Debe introducir una contraseña.';
+            passwordError.innerHTML = 'Debe introducir una contraseña.';
         } else if (password.validity.tooShort) {
-            passwordError.textContent = 'La contraseña debe tener al menos ' + password.minLength + ' caracteres; ha introducido ' + password.value.length;
+            passwordError.innerHTML = 'La contraseña debe tener al menos ' + password.minLength + ' caracteres; ha introducido ' + password.value.length;
         } else if (password.validity.tooLong) {
-            passwordError.textContent = 'La contraseña debe tener como máximo ' + password.maxLength + ' caracteres; ha introducido ' + password.value.length;
+            passwordError.innerHTML = 'La contraseña debe tener como máximo ' + password.maxLength + ' caracteres; ha introducido ' + password.value.length;
         }
 
         contraError.className = 'error active';
     }
 
-    password.addEventListener('focusout', function (event) {
+    password.addEventListener('blur', function (event) {
         checkPasswords();
     });
 
     function checkPasswords() {
         if (password.value != password2.value) {
-            password2Error.textContent = 'Las contraseñas que ha introducido no coinciden. Vuelva a introducirlas, por favor.';
+            password2Error.innerHTML = 'Las contraseñas que ha introducido no coinciden. Vuelva a introducirlas, por favor.';
             password2Error.className = 'error active';
             correctasPasswd = false;
         } else {
