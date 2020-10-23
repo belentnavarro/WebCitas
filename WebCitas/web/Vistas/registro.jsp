@@ -15,7 +15,7 @@
         <script src="../JS/validacionRegistro.js"></script>
         <script src="../JS/captchaRegistro.js"></script>
     </head>
-    <body onload="validarRegistro(); captcha();">
+    <body onload="validarRegistro();">
         <header class = "row">
             <div class = "col-m-4"></div>
             <div class = "col-m-4">
@@ -63,7 +63,7 @@
             </fieldset>
             <p>
             <div id="captchaRegistro">
-                <canvas id="captcha"></canvas>
+                <canvas id="captcha" onload="captcha();"></canvas>
                 <input type="button" id="refresh" value="Refrescar" onclick="captcha();" class="boton"/>
                 <input type="text" id="txtInput"/>
                 <input id="confirmar" type="button" value="Confirmar" onclick="validCaptcha('txtInput');" class="boton"/>
