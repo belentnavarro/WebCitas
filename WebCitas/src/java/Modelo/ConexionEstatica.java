@@ -65,6 +65,26 @@ public class ConexionEstatica {
         }
     }
     
+    public static Persona login1(String email, String passwd){
+        Persona usuario = null;
+        try{
+            // Seleccionamos al usuario de la tabla de personas donde tenemos sus datos más básicos.
+            String sentencia = "SELECT * FROM " + Constantes.tablaPersonas + " WHERE email = '" + email + "' AND password = '" + passwd + "'";
+            ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
+            if(Conj_Registros.next()){
+                usuario = new Persona (Conj_Registros.getString("dni"), Conj_Registros.getString("email"), Conj_Registros.getString("password"), Conj_Registros.getString("nombre"), Conj_Registros.getInt("edad"), Conj_Registros.getString("sexo"), Conj_Registros.getBoolean("activo"), Conj_Registros.getBoolean("preferenciasOk"));
+                sentencia = "SELECT * FROM " + Constantes.tablaAsignacionRoles + ", " + Constantes.tablaRoles + "WHERE dniPersona = '" + usuario.getDni() + "' AND asignacionRoles.idRol = roles.id";
+                ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
+                if(Conj_Registros.next()){
+                    usuario.setRol(Conj_Registros.getString("roles.descripcion"));
+                }
+            }
+        } catch(SQLException ex){
+            
+        }
+        return usuario;
+    }
+    
     public static Persona login (String email, String passwd) {
         Persona usuario = null;
         try{
@@ -73,10 +93,10 @@ public class ConexionEstatica {
             ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
             
             if(ConexionEstatica.Conj_Registros.next()){
-                usuario = new Persona (Conj_Registros.getString("dni"), Conj_Registros.getString("email"), Conj_Registros.getString("passwd"), Conj_Registros.getString("nombre"), Conj_Registros.getInt("edad"), Conj_Registros.getString("sexo"), Conj_Registros.getString("ocupacion"), Conj_Registros.getBoolean("activo"), Conj_Registros.getBoolean("preferenciasOk"));
+                usuario = new Persona (Conj_Registros.getString("dni"), Conj_Registros.getString("email"), Conj_Registros.getString("password"), Conj_Registros.getString("nombre"), Conj_Registros.getInt("edad"), Conj_Registros.getString("sexo"), Conj_Registros.getBoolean("activo"), Conj_Registros.getBoolean("preferenciasOk"));
                 
                 // Seleccionamos el rol que tiene el usuario desde la tabla asignacionRoles.
-                sentencia = "SELECT * FROM " + Constantes.tablaAsignacionRoles + ", " + Constantes.tablaRoles + "WHERE idPersona = '" + usuario.getDni() + "' AND asignacionRoles.idRol = roles.id";
+                sentencia = "SELECT * FROM " + Constantes.tablaAsignacionRoles + ", " + Constantes.tablaRoles + "WHERE dniPersona = '" + usuario.getDni() + "' AND asignacionRoles.idRol = roles.id";
                 ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
                 if(Conj_Registros.next()){
                     usuario.setRol(Conj_Registros.getString("roles.descripcion"));
@@ -84,7 +104,7 @@ public class ConexionEstatica {
                 
                 if(usuario.isPreferenciasOk()){
                     //Seleccionamos sus preferencias si se encuentran registradas.
-                    sentencia = "SELECT * FROM " + Constantes.tablaPreferencias + " WHERE dniPersona = '" + usuario.getDni() + "'";
+                    sentencia = "SELECT * FROM " + Constantes.tablaPreferencias + " WHERE dni = '" + usuario.getDni() + "'";
                     ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
                     if(Conj_Registros.next()){
                         usuario.setRelacionSeria(Conj_Registros.getBoolean("relacionSeria"));
@@ -114,7 +134,7 @@ public class ConexionEstatica {
             ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
             
             while(Conj_Registros.next()){
-                usuario =  new Persona (Conj_Registros.getString("dni"), Conj_Registros.getString("email"), Conj_Registros.getString("passwd"), Conj_Registros.getString("nombre"), Conj_Registros.getInt("edad"), Conj_Registros.getString("sexo"), Conj_Registros.getString("ocupacion"), Conj_Registros.getBoolean("activo"), Conj_Registros.getBoolean("preferenciasOk"));
+                usuario =  new Persona (Conj_Registros.getString("dni"), Conj_Registros.getString("email"), Conj_Registros.getString("passwd"), Conj_Registros.getString("nombre"), Conj_Registros.getInt("edad"), Conj_Registros.getString("sexo"), Conj_Registros.getBoolean("activo"), Conj_Registros.getBoolean("preferenciasOk"));
                 
                 // Seleccionamos el rol que tiene el usuario desde la tabla asignacionRoles.
                 sentencia = "SELECT * FROM " + Constantes.tablaAsignacionRoles + ", " + Constantes.tablaRoles + "WHERE idPersona = '" + usuario.getDni() + "' AND asignacionRoles.idRol = roles.id";
@@ -168,7 +188,7 @@ public class ConexionEstatica {
             // Añadimos un usuario a la tabla de datos personas con los datos esenciales de dicho usuario.
             // VALUES ('1A', 'belentrujillo1997@gmail.com', 'hola1A', 'Belen', '23', 'mujer', 'Estudiante', '1', '1', '0', '');
             String sentencia = "INSERT INTO " + Constantes.tablaPersonas + " VALUES('" + p.getDni() + "', '" + p.getEmail() + "', '" + p.getPasswd() + "', '" + p.getNombre() + "', " + p.getEdad() + ", '"
-                     + p.getSexo() + "', " + p.getOcupacion() + ", " + p.isActivo() + ", " + p.isPreferenciasOk() + ", '')";
+                     + p.getSexo() + "', " + p.isActivo() + ", " + p.isPreferenciasOk() + ", '')";
             ConexionEstatica.Sentencia_SQL.executeUpdate(sentencia);
             
             // Añadimos a la tabla de asignación de roles al nuevo usuario como usuario común (1).
@@ -206,5 +226,19 @@ public class ConexionEstatica {
             System.out.println("Error en el acceso a la BD.");
         }
         return conseguido;
+    }
+    
+    public static boolean isAdmin (Persona p){
+        boolean esAdmin = false;
+        try {
+            String sentencia = "SELECT * FROM " + Constantes.tablaAsignacionRoles + " WHERE dni = '" + p.getDni() + "' AND id = 2";
+            Conj_Registros = Sentencia_SQL.executeQuery(sentencia);
+            if(Conj_Registros.next()){
+                esAdmin = true;
+            }
+        } catch (SQLException ex){
+            System.out.println("Error en el acceso a la BD.");
+        }
+        return esAdmin;
     }
 }

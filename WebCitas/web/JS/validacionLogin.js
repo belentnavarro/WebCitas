@@ -22,7 +22,7 @@ function validarLogin(){
        }
     });
     
-    email.addEventListener('input', function(event){
+    email.addEventListener('blur', function(event){
        if(email.validity.valid){
            emailError.innerHTML = '';
            emailError.className = 'error';
@@ -31,10 +31,10 @@ function validarLogin(){
        }
     });
     
-    passwd.addEventListener('input', function(event){
+    passwd.addEventListener('blur', function(event){
         if(passwd.validity.valid){
             passwdError.innerHTML = '';
-            passwdError.className ='error'
+            passwdError.className ='error';
         } else {
             showErrorPasswd();
         }
@@ -42,9 +42,9 @@ function validarLogin(){
     
     function showErrorEmail(){
         if(email.validity.valueMissing){
-            emailError.txtContent = 'Campo vacío, debe introducir una dirección de correo electrónico.';
+            emailError.innerHTML = 'Campo vacío, debe introducir una dirección de correo electrónico.';
         } else if (email.validity.typeMismatch){
-            emailError.txtContent = 'El valor introducido debe ser una dirección de correo electrónico: ejemplo@ejemplo.com.'
+            emailError.txtContent = 'El valor introducido debe ser una dirección de correo electrónico: ejemplo@ejemplo.com.';
         }
         
         emailError.className = 'error active';
@@ -52,7 +52,7 @@ function validarLogin(){
     
     function showErrorPasswd(){
         if(passwd.validity.valueMissing){
-            passwdError.txtContent = 'Campo vacío, debe introducir la contraseña.';
+            passwdError.innerHTML = 'Campo vacío, debe introducir la contraseña.';
         }
         
         passwdError.className = 'error active';

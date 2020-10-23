@@ -6,6 +6,7 @@
 
 var code = '';
 var captchaConseguido = false;
+var result = 0;
 
 function validarRegistro(){
     
@@ -64,20 +65,14 @@ function validarRegistro(){
             event.preventDefault();
         }
         
-        /**
-         * 
-         * if(!captchaConseguido){
-         * event.preventDefault();
-         * captcha();
-         * var captchaError = document.getElementById("errorCaptcha);
-         * captchaError.innerHTML = "Captcha erróneo";
-         * captchaError.className = 'error active;
-         * var txt = document.getElementById("txtInput");
-         * txt.value = '';
-         * */
+        if(!captchaConseguido){
+            event.preventDefault();
+            captcha();
+            validCaptcha();
+        }
     });
 
-    dni.addEventListener('focusout', function (event) {
+    dni.addEventListener('blur', function (event) {
         if (dni.validity.valid) {
             dniError.innerHTML = '';
             dniError.className = 'error';
@@ -88,19 +83,19 @@ function validarRegistro(){
 
     function showErrorDNI() {
         if (dni.validity.valueMissing) {
-            dniError.textContent = 'Debe introducir un DNI.';
+            dniError.innerHTML = 'Debe introducir un DNI.';
         } else if (dni.validity.patternMismatch) {
-            dniError.textContent = 'El formato del DNI debe ser: 00000000-A.';
+            dniError.innerHTML = 'El formato del DNI debe ser: 00000000-A.';
         } else if (dni.validity.tooShort) {
-            dniError.textContent = 'El DNI debe tener ' + dni.maxLength + ' carácteres.';
+            dniError.innerHTML = 'El DNI debe tener ' + dni.maxLength + ' carácteres.';
         } else if (dni.validity.tooLong) {
-            dniError.textContent = 'El DNI debe tener ' + dni.maxLength + ' carácteres.';
+            dniError.innerHTML = 'El DNI debe tener ' + dni.maxLength + ' carácteres.';
         }
         
         dniError.className = 'error active';
     }
 
-    nombre.addEventListener('focusout', function (event) {
+    nombre.addEventListener('blur', function (event) {
         if (nombre.validity.valid) {
             nombreError.innerHTML = '';
             nombreError.className = 'error';
@@ -111,13 +106,13 @@ function validarRegistro(){
 
     function showErrorNombre() {
         if (apodo.validity.valueMissing) {
-            apodoError.textContent = 'Debe introducir un nombre.';
+            apodoError.innerHTML = 'Debe introducir un nombre.';
         } 
 
         apodoError.className = 'error active';
     }
 
-    email.addEventListener('focusout', function (event) {
+    email.addEventListener('blur', function (event) {
         if (email.validity.valid) {
             emailError.innerHTML = '';
             emailError.className = 'error';
@@ -128,15 +123,15 @@ function validarRegistro(){
 
     function showErrorEmail() {
         if (email.validity.valueMissing) {
-            emailError.textContent = 'Debe introducir una dirección de correo electrónico.';
+            emailError.innerHTML = 'Debe introducir una dirección de correo electrónico.';
         } else if (email.validity.typeMismatch) {
-            emailError.textContent = 'Debe introducir una dirección de correo electrónico correcta: ejemplo@ejemplo.com.';
+            emailError.innerHTML = 'Debe introducir una dirección de correo electrónico correcta: ejemplo@ejemplo.com.';
         } 
 
         emailError.className = 'error active';
     }
 
-    password.addEventListener('focusout', function (event) {
+    password.addEventListener('blur', function (event) {
         if (password.validity.valid) {
             passwordError.innerHTML = '';
             passwordError.className = 'error';
@@ -147,23 +142,23 @@ function validarRegistro(){
 
     function showPasswordError() {
         if (password.validity.valueMissing) {
-            passwordError.textContent = 'Debe introducir una contraseña.';
+            passwordError.innerHTML = 'Debe introducir una contraseña.';
         } else if (password.validity.tooShort) {
-            passwordError.textContent = 'La contraseña debe tener al menos ' + password.minLength + ' caracteres; ha introducido ' + password.value.length;
+            passwordError.innerHTML = 'La contraseña debe tener al menos ' + password.minLength + ' caracteres; ha introducido ' + password.value.length;
         } else if (password.validity.tooLong) {
-            passwordError.textContent = 'La contraseña debe tener como máximo ' + password.maxLength + ' caracteres; ha introducido ' + password.value.length;
+            passwordError.innerHTML = 'La contraseña debe tener como máximo ' + password.maxLength + ' caracteres; ha introducido ' + password.value.length;
         }
 
         contraError.className = 'error active';
     }
 
-    password.addEventListener('focusout', function (event) {
+    password.addEventListener('blur', function (event) {
         checkPasswords();
     });
 
     function checkPasswords() {
         if (password.value != password2.value) {
-            password2Error.textContent = 'Las contraseñas que ha introducido no coinciden. Vuelva a introducirlas, por favor.';
+            password2Error.innerHTML = 'Las contraseñas que ha introducido no coinciden. Vuelva a introducirlas, por favor.';
             password2Error.className = 'error active';
             correctasPasswd = false;
         } else {
@@ -172,6 +167,97 @@ function validarRegistro(){
             correctasPasswd = true;
         }
     }
+}
+
+function captcha(){
+    var operation = new Array('+', '-', '*');
+    var numbers = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    for (var i = 0; i < 5; i++) {
+        var num1 = numbers[Math.floor(Math.random() * numbers.length)];
+        var num2 = numbers[Math.floor(Math.random() * numbers.length)];
+        var op = operation[Math.floor(Math.random() * operation.length)];
+    }
+    
+    if(num1 < num2){
+        code = num2 + ' ' + op + ' ' + num1;
+    } else {
+        code = num1 + ' ' + op + ' ' + num2;
+    }
+    
+    switch(op){
+        case '+':
+            result = num1 + num2;
+        break;
+        case '-':
+            if(num1 < num2){
+                result = num2 - num1;
+            } else {
+                result = num1 - num2;
+            }
+        break;
+        case '*':
+            result = num1 * num2;
+        break;
+    }
+    
+    creaIMG(code);
+}
+
+function validCaptcha(txtInput){
+    resultCaptcha = removeSpaces(document.getElementById(txtInput).value);
+    captchaError = document.getElementById("errorCaptcha");
+    
+        if(result == resultCaptcha){
+            captchaConseguido = true;
+            captchaError.innerHTML = "Captcha correcto";
+            captchaError.className = "error";
+        } else {
+            captchaError.innerHTML = "Captcha incorrecto";
+            captchaError.className = "error active";
+            captcha();
+            captchaConseguido = false;
+        }
+    }
+    
+function removeSpaces(string){
+    return string.split(' ').join(' ');
+}
+
+function creaIMG(texto) {
+    var ctxCanvas = document.getElementById('captcha').getContext('2d');
+    var fontSize = "30px";
+    var fontFamily = "Arial";
+    var width = 250;
+    var height = 50;
+    //tamaño
+    ctxCanvas.canvas.width = width;
+    ctxCanvas.canvas.height = height;
+    //color de fondo
+    ctxCanvas.fillStyle = "whitesmoke";
+    ctxCanvas.fillRect(0, 0, width, height);
+    //puntos de distorsión
+    ctxCanvas.setLineDash([7, 10]);
+    ctxCanvas.lineDashOffset = 5;
+    ctxCanvas.beginPath();
+    var line;
+    for (var i = 0; i < (width); i++) {
+        line = i * 5;
+        ctxCanvas.moveTo(line, 0);
+        ctxCanvas.lineTo(0, line);
+    }
+    ctxCanvas.stroke();
+    //formato texto
+    ctxCanvas.direction = 'ltr';
+    ctxCanvas.font = fontSize + " " + fontFamily;
+    //texto posicion
+    var x = (width / 9);
+    var y = (height / 3) * 2;
+    //color del borde del texto
+    ctxCanvas.strokeStyle = "yellow";
+    ctxCanvas.strokeText(texto, x, y);
+    //color del texto
+    ctxCanvas.fillStyle = "red";
+    ctxCanvas.fillText(texto, x, y);
 }
 
 

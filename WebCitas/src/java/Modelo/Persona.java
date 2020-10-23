@@ -21,7 +21,6 @@ public class Persona {
     private String nombre;
     private int edad;
     private String sexo;
-    private String ocupacion;
     private String rol; // Rol que tiene el usuario: administrador o usuario común.
     private boolean activo;
     private boolean preferenciasOk;
@@ -43,16 +42,25 @@ public class Persona {
      ***************************************************************************/
     
     public Persona (){
+        this.dni = "";
+        this.email = "";
+        this.passwd = "";
+        this.nombre = "";
+        this.edad = 0;
+        this.sexo = "";
+        this.rol = "";
+        this.activo = false;
+        this.preferenciasOk = false;
+        this.fotoPerfil = "";
     }
 
-    public Persona(String dni, String email, String passwd, String nombre, int edad, String sexo, String ocupacion, boolean activo, boolean preferenciasOk) {
+    public Persona(String dni, String email, String passwd, String nombre, int edad, String sexo, boolean activo, boolean preferenciasOk) {
         this.dni = dni;
         this.email = email;
         this.passwd = passwd;
         this.nombre = nombre;
         this.edad = edad;
         this.sexo = sexo;
-        this.ocupacion = ocupacion;
         this.rol = "";
         this.activo = activo;
         this.preferenciasOk = preferenciasOk;
@@ -109,14 +117,6 @@ public class Persona {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
-    }
-
-    public String getOcupacion() {
-        return ocupacion;
-    }
-
-    public void setOcupacion(String ocupacion) {
-        this.ocupacion = ocupacion;
     }
 
     public String getRol() {

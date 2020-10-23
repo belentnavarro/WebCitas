@@ -4,6 +4,7 @@
     Author     : belen
 --%>
 
+<%@page import="Auxiliar.VerificarRecaptcha"%>
 <%@page import="Modelo.Email"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="Modelo.Persona"%>
@@ -28,36 +29,39 @@
             if (request.getParameter("aceptar") != null){
                 String email = request.getParameter("email");
                 String passwd = request.getParameter("passwd");
+                String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+                
+                boolean captchaVerificado = VerificarRecaptcha.verificar(gRecaptchaResponse);
                 
                 ConexionEstatica.nueva();
                 Persona usuario = ConexionEstatica.login(email, passwd);
                 
-                if(usuario != null){
+                if(usuario != null && captchaVerificado){
                     // Si el usuario está activo, se guarda al usaurio en una variable de sesion
                     if(usuario.isActivo()){
                         session.setAttribute("usuario", usuario);
 
                         // Si el usuario es administrador se cargan la lista de usuarios de la BD y se guarda en una variable de sesión
-                        if(usuario.getRol() == "administrador"){
+                        if(usuario.getRol().equals("administrador")){
                             LinkedList <Persona> listaUsuarios = ConexionEstatica.getUsers();
                             session.setAttribute("listaUsuarios", listaUsuarios);
 
                             if(usuario.isPreferenciasOk()){
                                 // Si el usuario tiene las preferencias, se manda a la ventana para elegir si quiere entrar como administrador o como usuario
-                                response.sendRedirect("Vistas/opcionAdmin.jsp");
+                                response.sendRedirect("../Vistas/opcionAdmin.jsp");
                             } else {
-                                // Si el usuario no tiene las preferencias, se le manda a la ventana para registrar sus gustos personales
-                                response.sendRedirect("Vistas/preferencias.jsp");
+                                // Si el usuario no¿Ma tiene las preferencias, se le manda a la ventana para registrar sus gustos personales
+                                response.sendRedirect("../Vistas/preferencias.jsp");
                             }
                         
                             //Si el usuario no es administrador
                         } else {
                             if(usuario.isPreferenciasOk()){
                                 // Si el usuario tiene las preferencias, se manda a la portada principal de la aplicación
-                                response.sendRedirect("Vistas/portada.jsp");
+                                response.sendRedirect("../Vistas/portada.jsp");
                             } else {
                                 // Si el usuario no tiene las preferencias, se le manda a la ventana para registrar sus gustos personales
-                                response.sendRedirect("Vistas/preferencias.jsp");
+                                response.sendRedirect("../Vistas/preferencias.jsp");
                             }
                         }
                     } else {
@@ -66,9 +70,15 @@
                         response.sendRedirect("../index.jsp");
                     }
                 } else {
-                    // Si el usuario no existe, se manda un mensaje y se vuelve al login.
-                    session.setAttribute("error-mensaje", "Error al iniciar la sesión, datos incorrectos.");
-                    response.sendRedirect("../index.jsp");
+                    if(captchaVerificado){
+                        // Si el usuario no existe, se manda un mensaje y se vuelve al login.
+                        session.setAttribute("error-mensaje", "Captcha no válido.");
+                        response.sendRedirect("../index.jsp");
+                    } else{
+                        // Si el usuario no existe, se manda un mensaje y se vuelve al login.
+                        session.setAttribute("error-mensaje", "Error al iniciar la sesión, datos incorrectos.");
+                        response.sendRedirect("../index.jsp");
+                    }
                 }
             }
             
@@ -100,7 +110,7 @@
                 ConexionEstatica.cerrarBD();
                 
                 if(conseguido){
-                    response.sendRedirect("Vistas/emailEnviado.jsp");
+                    response.sendRedirect("../Vistas/emailEnviado.jsp");
                 } else {
                     session.setAttribute("error-mensaje", "No se ha podido enviar la nueva contraseña a la dirección.");
                     response.sendRedirect("../index.jsp");
@@ -116,7 +126,7 @@
              */
             
              if(request.getParameter("entrarAdmin") != null){
-                response.sendRedirect("Vistas/CRUDUsuarios.jsp");
+                response.sendRedirect("../Vistas/CRUDUsuarios.jsp");
              }
              
              /******************************************************************
@@ -128,7 +138,7 @@
              */
             
              if(request.getParameter("entrarUsuario") != null){
-                response.sendRedirect("Vistas/portada.jsp");
+                response.sendRedirect("../Vistas/portada.jsp");
              }
              
              /******************************************************************
